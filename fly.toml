@@ -1,0 +1,33 @@
+# fly.toml app configuration file generated for fly-dn-lighthouse on 2024-04-17T10:11:31-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'fly-dn-lighthouse'
+primary_region = 'dfw'
+
+[build]
+  image = 'definednet/dnclient:latest'
+
+[env]
+  PRIMARY_REGION = 'dfw'
+
+[[mounts]]
+  source = 'defined'
+  destination = '/etc/defined/'
+
+[[services]]
+  protocol = 'udp'
+  internal_port = 4242
+
+  [[services.ports]]
+    port = 4242
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[metrics]]
+  port = 9091
+  path = '/metrics'
